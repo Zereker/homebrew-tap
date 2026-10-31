@@ -1,0 +1,37 @@
+name: Sync xcode formula
+on:
+  schedule:
+    - cron: "47 * * * *"
+  workflow_dispatch:
+  push:
+    branches: [master]
+    paths: [".github/workflows/sync-xcode.yml", "scripts/sync-xcode.py"]
+permissions:
+  contents: write
+concurrency:
+  group: sync-xcode-formula
+  cancel-in-progress: false
+jobs:
+  sync:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: "3.12"
+      - name: Verify upstream release and generate formula
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 scripts/sync-xcode.py
+      - name: Validate Ruby syntax
+        run: ruby -c Formula/xcode.rb
+      - name: Commit updated formula
+        run: |
+          set -euo pipefail
+          git add Formula/xcode.rb
+          if git diff --cached --quiet; then exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Update xcode formula from verified stable release"
+          git push origin HEAD:master
