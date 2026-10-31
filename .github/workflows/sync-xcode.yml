@@ -13,7 +13,7 @@ concurrency:
   cancel-in-progress: false
 jobs:
   sync:
-    runs-on: ubuntu-24.04
+    runs-on: macos-15
     timeout-minutes: 30
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
@@ -34,4 +34,10 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git commit -m "Update xcode formula from verified stable release"
+          # Clone the committed candidate into an isolated tap and install/test it
+          # before publishing the formula update to the remote branch.
+          brew tap --custom-remote Zereker/tap "$GITHUB_WORKSPACE"
+          HOMEBREW_NO_AUTO_UPDATE=1 brew install Zereker/tap/xcode
+          HOMEBREW_NO_AUTO_UPDATE=1 brew test Zereker/tap/xcode
+          codesign --verify --strict "$(brew --prefix xcode)/bin/xcode"
           git push origin HEAD:master
