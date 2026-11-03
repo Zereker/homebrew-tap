@@ -1,9 +1,9 @@
 class Xcode < Formula
   desc "Claude Code binary repackaged with the xcode name and local signing"
   homepage "https://github.com/Zereker/xcode"
-  url "https://github.com/Zereker/xcode/releases/download/xcode-v2.1.309-r1/xcode-darwin-arm64.tar.gz"
-  version "2.1.309"
-  sha256 "d066a76949b02c8813b6aacbf78fa9c59d9326e7c7c592f026fa6c36c3abf153"
+  url "https://github.com/Zereker/xcode/releases/download/xcode-v2.1.311-r1/xcode-darwin-arm64.tar.gz"
+  version "2.1.311"
+  sha256 "23704b206497c83ecc6fc9111ed74b868a0769a52a5d317bd0731ef0bc6e4534"
   revision 1
   license :cannot_represent
 
