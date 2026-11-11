@@ -1,9 +1,9 @@
 class Stepcode < Formula
   desc "Independent Stepcode CLI built from official stable Codex releases"
   homepage "https://github.com/Zereker/stepcode"
-  url "https://github.com/Zereker/stepcode/releases/download/stepcode-rust-v0.167.0/stepcode-macos-arm64-rust-v0.167.0.tar.gz"
-  sha256 "b10b86870314d234a43455e4b82b3d4ff7ce1ad224cbd61306a5f9baad50500a"
-  version "0.167.0"
+  url "https://github.com/Zereker/stepcode/releases/download/stepcode-rust-v0.167.1/stepcode-macos-arm64-rust-v0.167.1.tar.gz"
+  sha256 "a3022e6e7a5f6ded50f38cbe28f03b3a8518692832a8968db1419c9eb1db5241"
+  version "0.167.1"
   revision 0
 
   depends_on :macos
